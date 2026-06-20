@@ -1,27 +1,22 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Library{
-    private ArrayList<Book> books;
+    private HashMap<Integer, Book> books;
 
     public Library(){
-        books = new ArrayList<>();
+        books = new HashMap<>();
     }
     public void addBook(Book book){
-        books.add(book);
+        books.put(book.getId(),book);
         System.out.println("Book Added Successfully");
     }
     public void displayBooks(){
-        for(Book book : books){
+        for(Book book : books.values()){
             System.out.println(book);
         }
     }
     public Book searchBook(int id){
-        for(Book book : books){
-            if(book.getId() == id){
-                return book;
-            }
-        }
-        return null;
+        return books.get(id);
     }
     public void issueBook(int id){
         Book book = searchBook(id);
@@ -40,6 +35,14 @@ public class Library{
                 System.out.println("Book Returned Successfully");
             }else{
                 System.out.println("Book Not Issued");
+            }
+        }
+        public void deleteBook(int id){
+            if(books.containsKey(id)){
+                books.remove(id);
+                System.out.println("Book Deleted");
+            }else{
+                System.out.println("Book Not Found");
             }
         }
 }

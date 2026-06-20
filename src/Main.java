@@ -51,6 +51,11 @@ public class Main{
                 library.returnBook(returnId);
                 break;
             case 6:
+                System.out.println("enter Book ID:");
+                int deletedId = scanner.nextInt();
+                library.deleteBook(deletedId);
+                break;
+            case 7:
                 System.out.println("Exiting...");
                 scanner.close();
                 System.exit(0);
