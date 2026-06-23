@@ -1,10 +1,16 @@
 import java.util.Scanner;
+import exception.BookNotFoundException;
+import exception.UserNotFoundException;
+import service.Library;
+import model.Book;
+import model.User;
+
 public class Main{
     public static void main(String[] args){
        
         Library library = new Library();
         Scanner scanner = new Scanner(System.in);
-
+        library.loadData();
     while (true){
         System.out.println("\n====LIBRARY MENU====");
         System.out.println("1. Add Book");
@@ -20,6 +26,7 @@ public class Main{
             case 1:
                 System.out.println("Enter Book ID:");
                 int id = scanner.nextInt();
+                scanner.nextLine();
                 System.out.print("Enter Title:");
                 String title = scanner.nextLine();
                 System.out.print("Enter Author:");
@@ -43,7 +50,16 @@ public class Main{
             case 4:
                 System.out.print("Enter Book ID to issue:");
                 int issueId = scanner.nextInt();
-                library.issueBook(issueId);
+                System.out.print("Enter User ID:");
+                int userId = scanner.nextInt();
+                try{
+                    library.issueBook(issueId,userId);
+                    System.out.println("Book Issued Successfully");
+                }catch(BookNotFoundException e){
+                    System.out.println("Error:" + e.getMessage());
+                }catch(UserNotFoundException e){
+                    System.out.println("Error:" + e.getMessage());
+                }
                 break;
             case 5:
                 System.out.print("Enter Book ID to return:");
@@ -51,18 +67,22 @@ public class Main{
                 library.returnBook(returnId);
                 break;
             case 6:
-                System.out.println("enter Book ID:");
-                int deletedId = scanner.nextInt();
-                library.deleteBook(deletedId);
-                break;
-            case 7:
                 System.out.println("Exiting...");
                 scanner.close();
                 System.exit(0);
-               
-            default:
-                System.out.println("Invalid Choice. Please try again.");
+            case 7:
+                library.showTransaction();
                 break;
+            case 8:
+                library.displayUsers();
+                break;
+            case 9:
+                library.saveData();
+                System.out.println("Data saved.");
+                scanner.close();
+                System.exit(0);
+            default:
+                 System.out.println("Invalid Choice! Try Again.");
 
         }
     }

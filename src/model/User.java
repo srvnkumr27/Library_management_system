@@ -1,7 +1,11 @@
-public class User{
+package model;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int userId;
     private String name;
-    public User(int userId,String name){
+    public User(int userId, String name){
         this.userId = userId;
         this.name = name;
     }
